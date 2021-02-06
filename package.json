@@ -1,5 +1,5 @@
 {
-  "name": "@jayzyaj/enhanced-formik-persist",
+  "name": "enhanced-formik-persist",
   "description": "Persist and rehydrate a Formik form",
   "version": "1.0.0",
   "license": "MIT",
@@ -26,7 +26,7 @@
     "test:watch": "npm run test -- --watch",
     "start": "cross-env NODE_ENV=development tsc-watch --onSuccess \"rollup -c\"",
     "prebuild": "rimraf dist",
-    "build": "tsc && cross-env NODE_ENV=production rollup -c && rimraf compiled",
+    "build": "cross-env NODE_ENV=production rollup -c && rimraf compiled",
     "format": "prettier --trailing-comma es5 --single-quote --write 'src/**/*' 'test/**/*'",
     "precommit": "lint-staged",
     "addc": "all-contributors add",
