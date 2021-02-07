@@ -33,7 +33,9 @@
     "gen-docs": "all-contributors generate && doctoc README.md"
   },
   "dependencies": {
+    "@types/lodash.forin": "^4.4.6",
     "lodash.debounce": "^4.0.8",
+    "lodash.forin": "^4.4.0",
     "lodash.omit": "^4.5.0",
     "react-fast-compare": "^2.0.1"
   },

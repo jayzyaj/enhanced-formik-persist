@@ -80,19 +80,36 @@ describe('Formik Persist', () => {
       <Formik
         initialValues={{ name: 'Anuj Sachan' }}
         onSubmit={noop}
-        render={(props: FormikProps<{ name: string }>) => {
+        render={(
+          props: FormikProps<{ name: string; person: { gender: string } }>
+        ) => {
           injected = props;
           return (
             <div>
-              <Persist name="signup" debounce={0} />
+              <Persist
+                name="signup"
+                debounce={0}
+                ignoreFields={['first_name', 'person.gender', 'number']}
+              />
             </div>
           );
         }}
       />,
       node
     );
-    injected.setValues({ name: 'ciaran' }, { email: 'ian@example.com' });
+    injected.setValues({
+      name: 'ciaran',
+      person: {
+        gender: 'M',
+        passports: [{ number: 123 }, { number: 456 }],
+      },
+    });
     jest.runAllTimers();
-    expect(JSON.parse(state).values).toEqual({ name: 'ciaran' });
+    expect(JSON.parse(state).values).toEqual({
+      name: 'ciaran',
+      person: {
+        passports: [{}, {}],
+      },
+    });
   });
 });
