@@ -42,36 +42,13 @@ class PersistImpl extends React.Component<
     }
   }, this.props.debounce);
 
-  /**
-   * 
-   * @param data 
-   * 
-   * 1. Omit data by recursively looking into the object and omit properties inclued in the list of ignored fields
-   */
-
   omitIgnoredFields = (data: FormikProps<{}>) => {
     const { ignoreFields } = this.props;
     const { values, touched, errors } = data;
 
     // @ts-ignore
-    const copy = [...ignoreFields] || [];
-    copy.map((f: string) => omitDeep(values, f.split('.').pop()));
-
-    // const ignored = [...ignoreFields || []].map((f: string) => {
-    //   const val = get({ ...values }, f);
-    //   console.log('val:', val);
-    //   return val;
-    // });
-    // console.log('ignored:', ignored);
-
-    // console.log(values);
-
-    // const arr = [...ignoreFields || []];
-    // const obj: any = {};
-    // // const toIgnore = arr.map((f: any) => f.split('.').reduce((o: string, i: any) => o[i], obj));
-    // const toIgnore = arr.map((f: string) => f.split('.'));
-    // console.log('toIgnore:', toIgnore);
-    // console.log('obj:', obj);
+    const fieldsToIgnore = [...ignoreFields] || [];
+    fieldsToIgnore.map((f: string) => omitDeep(values, f.split('.').pop()));
 
     return ignoreFields
       ? {
