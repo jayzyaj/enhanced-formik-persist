@@ -3,6 +3,7 @@ import { FormikProps, connect } from 'formik';
 import debounce from 'lodash.debounce';
 import omit from 'lodash.omit';
 import forIn from 'lodash.forin';
+import cloneDeep from 'lodash.clonedeep';
 import isEqual from 'react-fast-compare';
 
 function omitDeep(obj: any, fieldToIgnore?: string) {
@@ -46,14 +47,18 @@ class PersistImpl extends React.Component<
     const { ignoreFields } = this.props;
     const { values, touched, errors } = data;
 
+    const valuesDeepCopy = cloneDeep(values);
+
     // @ts-ignore
     const fieldsToIgnore = [...ignoreFields] || [];
-    fieldsToIgnore.map((f: string) => omitDeep(values, f.split('.').pop()));
+    fieldsToIgnore.map((f: string) =>
+      omitDeep(valuesDeepCopy, f.split('.').pop())
+    );
 
     return ignoreFields
       ? {
           ...data,
-          values: omit(values, ignoreFields),
+          values: omit(valuesDeepCopy, ignoreFields),
           touched: omit(touched, ignoreFields),
           errors: omit(errors, ignoreFields),
         }

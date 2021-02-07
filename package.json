@@ -1,7 +1,7 @@
 {
   "name": "enhanced-formik-persist",
   "description": "Persist and rehydrate a Formik form",
-  "version": "1.0.1",
+  "version": "1.0.6",
   "license": "MIT",
   "author": "Jared Palmer <jared@palmer.net>",
   "repository": "jaredpalmer/formik-persist",
@@ -34,7 +34,9 @@
     "publish-public": "npm publish --access public"
   },
   "dependencies": {
+    "@types/lodash.clonedeep": "^4.5.6",
     "@types/lodash.forin": "^4.4.6",
+    "lodash.clonedeep": "^4.5.0",
     "lodash.debounce": "^4.0.8",
     "lodash.forin": "^4.4.0",
     "lodash.omit": "^4.5.0",
