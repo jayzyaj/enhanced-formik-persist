@@ -35,7 +35,7 @@ export const Signup = () =>
 
 ### Props
 
-Only two props! 
+Only three props! 
 
 - `name: string`: LocalStorage key to save form state to
 - `debounce:? number`: Default is `300`. Number of ms to debounce the function that saves form state.
