@@ -89,7 +89,12 @@ describe('Formik Persist', () => {
               <Persist
                 name="signup"
                 debounce={0}
-                ignoreFields={['first_name', 'person.gender', 'number']}
+                ignoreFields={[
+                  'first_name',
+                  'person.gender',
+                  'number',
+                  'phones',
+                ]}
               />
             </div>
           );
