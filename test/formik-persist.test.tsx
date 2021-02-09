@@ -65,7 +65,7 @@ describe('Formik Persist', () => {
     expect(injected.values.name).toEqual('Anuj');
   });
 
-  it('omits ignored fields', () => {
+  it('omits ignored fields with complicated nested objects', () => {
     let node = document.createElement('div');
     jest.useFakeTimers();
     let state = null;
@@ -103,6 +103,7 @@ describe('Formik Persist', () => {
         gender: 'M',
         dateOfBirth: '2020-01-01',
         passports: [{ number: 123 }, { number: 456 }],
+        phones: [1423, 1515],
       },
     });
     jest.runAllTimers();

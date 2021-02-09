@@ -10,7 +10,8 @@ function omitDeep(obj: any, fieldToIgnore?: string) {
   forIn(obj, function(value, key) {
     if (typeof value === 'object') {
       omitDeep(value, fieldToIgnore);
-    } else if (key === fieldToIgnore) {
+    }
+    if (key === fieldToIgnore) {
       delete obj[key];
     }
   });
