@@ -65,7 +65,7 @@ describe('Formik Persist', () => {
     expect(injected.values.name).toEqual('Anuj');
   });
 
-  it('omits ignored fields with complicated nested objects', () => {
+  it('should omits complicated nested objects', () => {
     let node = document.createElement('div');
     jest.useFakeTimers();
     let state = null;
@@ -118,6 +118,74 @@ describe('Formik Persist', () => {
         dateOfBirth: '2020-01-01',
         passports: [{}, {}],
       },
+    });
+  });
+
+  it('should omit array of objects when ignored', () => {
+    let node = document.createElement('div');
+    jest.useFakeTimers();
+    let state = null;
+    let setItem = (key: string, value: any) => (state = value);
+    (window as any).localStorage = {
+      getItem: jest.fn(),
+      setItem,
+      removeItem: jest.fn(),
+    };
+    let injected: any;
+    ReactDOM.render(
+      <Formik
+        // initialValues={{ name: 'Anuj Sachan' }}
+        onSubmit={noop}
+        render={(props: FormikProps<{ persons: [{ name: string }] }>) => {
+          injected = props;
+          return (
+            <div>
+              <Persist name="signup" debounce={0} ignoreFields={['persons']} />
+            </div>
+          );
+        }}
+      />,
+      node
+    );
+    injected.setValues({
+      persons: [{ name: 'Hehe' }],
+    });
+    jest.runAllTimers();
+    expect(JSON.parse(state).values).toEqual({});
+  });
+
+  it('should not omit array of objects when no ignore props', () => {
+    let node = document.createElement('div');
+    jest.useFakeTimers();
+    let state = null;
+    let setItem = (key: string, value: any) => (state = value);
+    (window as any).localStorage = {
+      getItem: jest.fn(),
+      setItem,
+      removeItem: jest.fn(),
+    };
+    let injected: any;
+    ReactDOM.render(
+      <Formik
+        // initialValues={{ persons: [{ name: 'Anuj Sachan'}] }}
+        onSubmit={noop}
+        render={(props: FormikProps<{ persons: [{ name: string }] }>) => {
+          injected = props;
+          return (
+            <div>
+              <Persist name="signup" debounce={0} />
+            </div>
+          );
+        }}
+      />,
+      node
+    );
+    injected.setValues({
+      persons: [{ name: 'Hehe' }],
+    });
+    jest.runAllTimers();
+    expect(JSON.parse(state).values).toEqual({
+      persons: [{ name: 'Hehe' }],
     });
   });
 });

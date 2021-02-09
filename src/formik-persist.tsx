@@ -8,11 +8,12 @@ import isEqual from 'react-fast-compare';
 
 function omitDeep(obj: any, fieldToIgnore?: string) {
   forIn(obj, function(value, key) {
-    if (typeof value === 'object') {
-      omitDeep(value, fieldToIgnore);
-    }
     if (key === fieldToIgnore) {
       delete obj[key];
+      return;
+    }
+    if (typeof value === 'object') {
+      omitDeep(value, fieldToIgnore);
     }
   });
 }
@@ -51,7 +52,7 @@ class PersistImpl extends React.Component<
     const valuesDeepCopy = cloneDeep(values);
 
     // @ts-ignore
-    const fieldsToIgnore = [...ignoreFields] || [];
+    const fieldsToIgnore = ignoreFields || [];
     fieldsToIgnore.map((f: string) =>
       omitDeep(valuesDeepCopy, f.split('.').pop())
     );
