@@ -101,6 +101,7 @@ describe('Formik Persist', () => {
       name: 'ciaran',
       person: {
         gender: 'M',
+        dateOfBirth: '2020-01-01',
         passports: [{ number: 123 }, { number: 456 }],
       },
     });
@@ -108,6 +109,7 @@ describe('Formik Persist', () => {
     expect(JSON.parse(state).values).toEqual({
       name: 'ciaran',
       person: {
+        dateOfBirth: '2020-01-01',
         passports: [{}, {}],
       },
     });

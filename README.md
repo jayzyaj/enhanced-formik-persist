@@ -3,7 +3,7 @@
 Persist and rehydrate a [Formik](https://github.com/jaredpalmer/formik) form.
 
 ```
-npm install formik-persist --save
+npm install enhanced-formik-persist --save
 ```
 
 # Basic Usage
@@ -39,6 +39,7 @@ Only two props!
 
 - `name: string`: LocalStorage key to save form state to
 - `debounce:? number`: Default is `300`. Number of ms to debounce the function that saves form state.
+- `ignoreFields: string[]`: Fields to ignore in the form
 
 
 ## Author
